@@ -1,0 +1,75 @@
+<%- include("header") -%>
+
+  <div class="box" id="heading">
+    <h1> <%= listTitle %> </h1>
+  </div>
+
+  <div class="box">
+
+
+  <%  newListItems.forEach(function(item){ %>
+
+    <form action="/delete" method="post">
+      <div class="item">
+        <input type="checkbox" name="checkbox" value="<%=item._id%>" onChange="this.form.submit()">
+        <p><%=item.name%></p>
+      </div>
+      <input type="hidden" name="listName" value="<%= listTitle %>"></input>
+    </form>
+  <%  }) %>
+
+
+      <form class="item" action="/" method="post">
+        <input type="text" name="newItem" placeholder="New Item" autocomplete="off">
+        <button id='colorChange' type="submit" name="list" value="<%= listTitle %>">+</button>
+      </form>
+  </div>
+
+  <form class="box" action="/newList" method="post">
+    <h1 class="black">Add a new list to your needs</h1>
+    <input placeholder="New List" name="newlist" type="text">
+    <button id='colorChange' type="submit">+</button>
+  </form>
+
+  <script>
+    var setofcolors = [
+    {
+        colora: '#FFCA03',
+        colorb: '#FF5403'
+    },
+    {
+        colora: '#FFC4E1',
+        colorb: '#FF87CA'
+    },
+    {
+        colora: '#396EB0',
+        colorb: '#2E4C6D'
+    },
+    {
+        colora: '#FF5F7E',
+        colorb: '#B000B9'
+    },
+    {
+        colora: '#94DAFF',
+        colorb: '#B983FF'
+    },
+    {
+        colora: '#FF9B6A',
+        colorb: '#FF5151'
+    }
+]
+
+function random_bg_color() {
+    var num = Math.floor(Math.random() * 5);
+    var bgColor = setofcolors[num];
+    var bgImg = '-webkit-linear-gradient(65deg, '+bgColor.colorb+' 50%, '+bgColor.colora+' 50%)'
+    console.log(bgColor.colora);
+    document.body.style.background = bgImg;
+    document.getElementById('heading').style.background = bgColor.colorb;
+    document.getElementById('colorChange').style.background = bgColor.colorb;
+}
+
+random_bg_color();
+  </script>
+
+<%- include("footer") -%>
